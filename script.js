@@ -1,3 +1,4 @@
+const calculator = document.querySelectorAll('calculator')
 const calculatorDisplay = document.querySelector('h1');
 const inputBtns = document.querySelectorAll('button');
 const clearBtn = document.getElementById('clear-btn');
@@ -81,5 +82,42 @@ inputBtns.forEach((inputBtn) => {
 
 // Event Listener
 clearBtn.addEventListener('click', resetAll);
+
+calculator.onmousedown = function(event) {
+
+  let shiftX = event.clientX - ball.getBoundingClientRect().left;
+  let shiftY = event.clientY - ball.getBoundingClientRect().top;
+
+  calculator.style.position = 'absolute';
+  calculator.style.zIndex = 1000;
+  document.body.append(calculator);
+
+  moveAt(event.pageX, event.pageY);
+
+  // moves the ball at (pageX, pageY) coordinates
+  // taking initial shifts into account
+  function moveAt(pageX, pageY) {
+    calculator.style.left = pageX - shiftX + 'px';
+    calculator.style.top = pageY - shiftY + 'px';
+  }
+
+  function onMouseMove(event) {
+    moveAt(event.pageX, event.pageY);
+  }
+
+  // move the ball on mousemove
+  document.addEventListener('mousemove', onMouseMove);
+
+  // drop the ball, remove unneeded handlers
+  calculator.onmouseup = function() {
+    document.removeEventListener('mousemove', onMouseMove);
+    calculator.onmouseup = null;
+  };
+
+};
+
+ball.ondragstart = function() {
+  return false;
+};
 
 console.log();
