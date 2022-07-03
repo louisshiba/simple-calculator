@@ -94,8 +94,6 @@ calculator.onmousedown = function(event) {
 
   moveAt(event.pageX, event.pageY);
 
-  // moves the ball at (pageX, pageY) coordinates
-  // taking initial shifts into account
   function moveAt(pageX, pageY) {
     calculator.style.left = pageX - shiftX + 'px';
     calculator.style.top = pageY - shiftY + 'px';
@@ -105,10 +103,8 @@ calculator.onmousedown = function(event) {
     moveAt(event.pageX, event.pageY);
   }
 
-  // move the ball on mousemove
   document.addEventListener('mousemove', onMouseMove);
 
-  // drop the ball, remove unneeded handlers
   calculator.onmouseup = function() {
     document.removeEventListener('mousemove', onMouseMove);
     calculator.onmouseup = null;
@@ -116,7 +112,7 @@ calculator.onmousedown = function(event) {
 
 };
 
-ball.ondragstart = function() {
+calculator.ondragstart = function() {
   return false;
 };
 
